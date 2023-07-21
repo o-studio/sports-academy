@@ -1,0 +1,24 @@
+features:
+  - create:
+    domain: dom.hima-pro.ru
+    user: himapro
+    pass: X-l4u)-37IBmAaFe59
+    email: 456293802@fayoum3.moe.edu.eg
+  - dns
+  - ssl
+  - "ssl on"
+  - "php latest"
+  - "node latest"
+  - mysql
+nginx:
+  root: public_html/dist
+  fastcgi: "on"
+  locations:
+    - match: /
+      try_files: "$uri $uri/ /index.html$is_args$args"
+    - match: /api
+      try_files: "$uri $uri/ /api/index.php$is_args$args"
+commands:
+  - "npm install"
+  - "npm run build"
+source: "https://github.com/o-studio/sports-academy"

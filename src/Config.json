@@ -1,0 +1,21 @@
+{
+  "AppName": "MyApp",
+  "theme": "light",
+  "api-server": "http://localhost:8000",
+  "themes": {
+    "light": {
+      "colorAccent": "#0099ff",
+      "primary": "#F6F6F6",
+      "secondary": "#ffffff88",
+      "shadow": "#00000033",
+      "font": "#131313"
+    },
+    "dark": {
+      "colorAccent": "#0099ff",
+      "primary": "#313131",
+      "secondary": "#3f3f3f88",
+      "shadow": "#00000033",
+      "font": "#ffffff"
+    }
+  }
+}
