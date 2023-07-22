@@ -1,5 +1,5 @@
 {
-  "AppName": "MyApp",
+  "AppName": "أكادمية الرياضة",
   "theme": "light",
   "api-server": "http://localhost:8000",
   "themes": {
@@ -7,15 +7,17 @@
       "colorAccent": "#0099ff",
       "primary": "#F6F6F6",
       "secondary": "#ffffff88",
-      "shadow": "#00000033",
-      "font": "#131313"
+      "shadow": "rgba(0, 0, 0, 0.15)",
+      "font": "#131313",
+      "mixFont": "#6E7583"
     },
     "dark": {
       "colorAccent": "#0099ff",
-      "primary": "#313131",
-      "secondary": "#3f3f3f88",
-      "shadow": "#00000033",
-      "font": "#ffffff"
+      "primary": "#141718",
+      "secondary": "#232627",
+      "shadow": "rgba(0, 0, 0, 0.15)",
+      "font": "#ffffff",
+      "mixFont": "#6E7583"
     }
   }
 }

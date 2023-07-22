@@ -3,11 +3,11 @@ import Config from "../../Config.json";
 import "./About.css";
 
 const About = () => {
-  Helpers.Title(`${Config.AppName} | About`);
+  Helpers.Title(`${Config.AppName} | من نحن`);
 
   return (
     <Components.Layout>
-      About Page
+      صفحة من نحن
     </Components.Layout>
   )
 };

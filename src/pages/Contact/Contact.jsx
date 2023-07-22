@@ -3,11 +3,11 @@ import Config from "../../Config.json";
 import "./Contact.css";
 
 const Contact = () => {
-  Helpers.Title(`${Config.AppName} | Contact`);
+  Helpers.Title(`${Config.AppName} | اتصل بنا`);
 
   return (
     <Components.Layout>
-      Contact Page
+      صفحة اتصل بنا
     </Components.Layout>
   )
 };

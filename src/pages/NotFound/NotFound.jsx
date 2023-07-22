@@ -3,11 +3,11 @@ import Config from "../../Config.json";
 import "./NotFound.css";
 
 const NotFound = () => {
-  Helpers.Title(`${Config.AppName} | NotFound`);
+  Helpers.Title(`${Config.AppName} | الصفحة غير موجودة`);
 
   return (
     <Components.Layout>
-      NotFound Page
+      الصفحة غير موجودة
     </Components.Layout>
   )
 };

@@ -1,9 +1,4 @@
 features:
-  - create:
-    domain: dom.hima-pro.ru
-    user: himapro
-    pass: X-l4u)-37IBmAaFe59
-    email: 456293802@fayoum3.moe.edu.eg
   - dns
   - ssl
   - "ssl on"

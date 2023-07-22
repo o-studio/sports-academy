@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 
 import { Pages, Helpers } from "./Imports";
 import Config from "./Config.json";
-import "./App.css";
 
 window.themeManager = new Helpers.ThemeManager(Config);
 window.themeManager.apply();

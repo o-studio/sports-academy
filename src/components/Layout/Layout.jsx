@@ -7,8 +7,10 @@ const Layout = ({children}) => {
   return (
     <>
       <Components.Header />
-      {children}
-      <Components.Footer />
+      <section className="content">
+        {children}
+        <Components.Footer />
+      </section>
     </>
   )
 };

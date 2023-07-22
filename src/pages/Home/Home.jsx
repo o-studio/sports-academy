@@ -3,11 +3,12 @@ import Config from "../../Config.json";
 import "./Home.css";
 
 const Home = () => {
-  Helpers.Title(`${Config.AppName} | Home`);
+  Helpers.Title(`${Config.AppName} | الرئيسية`);
 
   return (
     <Components.Layout>
-      Home Page
+      <p style={{height: "120%"}}>الصفحة الرئيسية</p>
+
     </Components.Layout>
   )
 };
