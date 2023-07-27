@@ -1,13 +1,14 @@
 {
-  "AppName": "أكادمية الرياضة",
+  "AppName": "أكاديمية الرياضة",
+  "baseName": "/",
   "theme": "light",
-  "api-server": "http://localhost:8000",
   "themes": {
     "light": {
       "colorAccent": "#0099ff",
       "primary": "#F6F6F6",
       "secondary": "#ffffff88",
       "shadow": "rgba(0, 0, 0, 0.15)",
+      "fontFamily": "\"kufi\", sans-serif",
       "font": "#131313",
       "mixFont": "#6E7583"
     },
@@ -16,8 +17,14 @@
       "primary": "#141718",
       "secondary": "#232627",
       "shadow": "rgba(0, 0, 0, 0.15)",
+      "fontFamily": "\"kufi\", sans-serif",
       "font": "#ffffff",
       "mixFont": "#6E7583"
     }
-  }
+  },
+  "nav": [
+    { "name": "الرئيسية", "icon": "fa:home", "link": "/", "color": "#3E8FEE" },
+    { "name": "اتصل بنا", "icon": "fa:envelope", "link": "/contact", "color": "#3EDA77" },
+    { "name": "من نحن", "icon": "fa:info-circle", "link": "/about", "color": "#D54B10" }
+  ]
 }

@@ -1,12 +1,13 @@
-import {Components, Helpers} from "../../Imports";
-import Config from "../../Config.json";
 import "./Contact.css";
 
-const Contact = () => {
+const Contact = ({props}) => {
+  const {Config, Imports} = props;
+  const {Components, Helpers} = Imports;
+  
   Helpers.Title(`${Config.AppName} | اتصل بنا`);
 
   return (
-    <Components.Layout>
+    <Components.Layout header={Config.nav} >
       صفحة اتصل بنا
     </Components.Layout>
   )

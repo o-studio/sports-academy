@@ -1,0 +1,144 @@
+.Sports-Page {
+  padding: 30px;
+  min-height: 100%;
+}
+
+.Sports-Page .sports-header {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: center;
+}
+
+.Sports-Page .sports-header .sports-logo {
+  zoom: 2;
+}
+
+.Sports-Page .sports-header .sports-banner img {
+  height: 150px;
+}
+
+
+.Sports-Page form {
+  width: 100%;
+  /* max-width: 600px; */
+  display: flex;
+  flex-direction: column;
+}
+
+.Sports-Page .item {
+  width: 100%;
+  background: var(--primary);
+  color: var(--font);
+  border: 0;
+  padding: 5px 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+.Sports-Page .box-group {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  cursor: text;
+  align-items: center;
+  border: 1px solid var(--shadow);
+  gap: 10px;
+}
+
+.Sports-Page .box-group input {
+  background: var(--primary);
+  font-size: 1rem;
+  color: var(--font);
+  border-radius: 10px;
+  height: 40px;
+  min-width: 30px;
+  outline: none;
+  border: none;
+}
+
+.Sports-Page button[type="submit"] {
+  height: 50px;
+  border: 1px solid var(--shadow);
+  font-family: var(--fontFamily);
+  background: var(--colorAccent);
+  color: #ffffff;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.Sports-Page button[type="submit"]:hover {
+  opacity: 1;
+}
+.Sports-Page button[type="submit"]:active {
+  opacity: 0.8;
+}
+
+.Sports-Page .table-container {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.Sports-Page table {
+  width: 100%;
+}
+.Sports-Page table tr {
+  display: grid;
+  grid-template-columns: 40px 1fr 170px 80px;
+}
+.Sports-Page table thead tr {
+  border-bottom: 1px solid var(--shadow);
+}
+.Sports-Page table tbody tr {
+  margin: 10px 0;
+  border-radius: 10.1px;
+  border: 1px solid var(--shadow);
+  background: var(--primary);
+}
+
+.Sports-Page table tr td {
+  padding: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+  .Sports-Page table tbody tr td {
+    border-left: 1px solid var(--shadow);
+  }
+
+.Sports-Page table tr td:last-child {
+  border-left: none;
+}
+.Sports-Page table tr td:nth-child(2) {
+  justify-content: start;
+}
+
+.Sports-Page table input,
+.Sports-Page table .iconify {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}
+
+@media (max-width: 1024px) {
+  .Sports-Page .sports-header {
+    padding: 20px 10px;
+  }
+}
+
+@media (max-width: 800px) {
+  .Sports-Page .sports-header {
+    padding: 10px;
+    grid-template-columns: 1fr;
+  }
+  .Sports-Page .sports-header .sports-banner {
+    display: none;
+  }
+
+  .Sports-Page .item,
+  .Sports-Page .item input,
+  .Sports-Page table tbody tr {
+    background: var(--secondary);
+  }
+
+}

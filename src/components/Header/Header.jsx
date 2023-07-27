@@ -15,7 +15,7 @@ setInterval(() => {
   });
 }, 100);
 
-const Header = () => {
+const Header = ({ List }) => {
   const [toggle, setToggle] = useState(window.sessionStorage.toggle || -1);
   const [toggleWide, setToggleWide] = useState(window.sessionStorage.toggleWide || 1);
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
@@ -31,7 +31,7 @@ const Header = () => {
         {
           pageWidth > 800 ? (
             <span className="item" onClick={()=> {setToggleWide(toggleWide * -1); window.sessionStorage.toggleWide = (toggleWide * -1);}} >
-              <Icon icon={`icon-park-outline:menu-${toggleWide > 0 ? "fold" : "unfold"}`} />
+              <Icon icon={`icon-park-outline:menu-${toggleWide > 0 ? "unfold" : "fold"}`} />
             </span>
           ) : (
             <span className="item" onClick={()=> {setToggle(toggle * -1); window.sessionStorage.toggle = (toggle * -1);}} >
@@ -41,28 +41,26 @@ const Header = () => {
         }
       </nav>
       <nav className="links">
-        <Link className="item" onClick={()=> hideHeader()} to="/">
-          <Icon style={{color: "#3E8FEE"}} icon="fa:home" />
-          <span>الرئيسية</span>
-        </Link>
-        <Link className="item" onClick={()=> hideHeader()} to="/contact">
-          <Icon style={{color: "#3EDA77"}} icon="fa:envelope" />
-          <span>اتصل بنا</span>
-        </Link>
-        <Link className="item" onClick={()=> hideHeader()} to="/about">
-          <Icon style={{color: "#D54B10"}} icon="fa:info-circle" />
-          <span>من نحن</span>
-        </Link>
+        {
+          List.map((item, index) => (
+            <Link className="item" onClick={()=> hideHeader()} to={item.link} key={index}>
+              <Icon style={{color: item.color}} icon={item.icon} />
+              <span>{item.name}</span>
+            </Link>
+          ))
+        }
       </nav>
       <nav>
-        <Link className="item" onClick={()=> hideHeader()} to="/auth/login">
+        <Link className="item" onClick={()=> hideHeader()} to="/dash/login">
           <Icon icon="mdi:login-variant" />
           <span>تسجيل الدخول</span>
         </Link>
-        <span className="item" onClick={()=> window.themeManager.switch()} >
-          <Icon icon="fa:moon-o" />
-          <span>المظهر</span>
-        </span>
+        {false && (
+          <span className="item" onClick={()=> window.themeManager.switch()} >
+            <Icon icon="fa:moon-o" />
+            <span>المظهر</span>
+          </span>
+        )}
       </nav>
     </header>
   );

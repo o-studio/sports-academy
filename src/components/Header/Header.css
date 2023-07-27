@@ -21,7 +21,7 @@ header .item {
   margin: 5px 0;
   align-items: center;
   gap: 10px;
-  padding: 10px;
+  padding: 10px 15px;
   border-radius: 10px;
   font-weight: 500;
   color: var(--mixFont);
@@ -60,6 +60,10 @@ header .item:hover {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
 
+  }
+  header {
+    padding: 0 10px;
+    background: var(--secondary);
   }
   header.close nav {
     display: none;

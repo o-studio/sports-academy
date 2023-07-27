@@ -16,7 +16,7 @@ body,
 #root {
   width: 100%;
   height: 100%;
-  font-family: "kufi", sans-serif;
+  font-family: var(--fontFamily);
   background: var(--primary);
   color: var(--font);
 }
@@ -58,7 +58,12 @@ a {
 
 @media (max-width:800px) {
   #root {
-    padding: 10px;
-    gap: 10px;
+    padding: 0;
+    gap: 0;
+  }
+  .content {
+    border-radius: 0;
+    background: inherit;
+    box-shadow: inherit;
   }
 }

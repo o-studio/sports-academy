@@ -1,0 +1,110 @@
+.Signup-Page {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px 0;
+}
+
+.Signup-Page p:first-child {
+  display: flex;
+  align-items: center;
+}
+
+.Signup-Page p:first-child .iconify {
+  cursor: pointer;
+}
+
+.Signup-Page form {
+  width: 85%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Signup-Page .item {
+  width: 100%;
+  background: var(--secondary);
+  color: var(--font);
+  border: 0;
+  padding: 5px 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+.Signup-Page .user-group,
+.Signup-Page .pass-group {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  cursor: text;
+  align-items: center;
+  border: 1px solid var(--shadow);
+  gap: 10px;
+}
+
+.Signup-Page .user-group input,
+.Signup-Page .pass-group input {
+  background: var(--secondary);
+  font-size: 1rem;
+  color: var(--font);
+  border-radius: 10px;
+  height: 40px;
+  min-width: 30px;
+  outline: none;
+  border: none;
+}
+
+.Signup-Page .pass-group {
+  grid-template-columns: auto 1fr auto;
+}
+.Signup-Page .pass-group .showPass {
+  cursor: pointer;
+}
+
+.Signup-Page a {
+  color: var(--colorAccent);
+}
+
+.Signup-Page button[type="submit"] {
+  height: 50px;
+  border: 1px solid var(--shadow);
+  font-family: var(--fontFamily);
+  cursor: pointer;
+}
+
+.Signup-Page button[type="submit"]:hover {
+  background: var(--colorAccent);
+  color: #ffffff;
+}
+.Signup-Page button[type="submit"]:active {
+  opacity: 0.8;
+}
+
+::placeholder {
+  font-family: var(--fontFamily);
+}
+
+.iconify {
+  width: 25px;
+}
+
+@media (max-width: 800px) {
+  .Signup-Page {
+    align-items: start;
+    overflow: auto;
+  }
+  .Signup-Page form {
+    overflow: auto;
+  }
+}
+@media (max-height: 450px) {
+  .Signup-Page {
+    align-items: start;
+    overflow: auto;
+  }
+  .Signup-Page form {
+    overflow: auto;
+  }
+}

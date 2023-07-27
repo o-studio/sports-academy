@@ -17,6 +17,17 @@ import UrlQuery from "./helpers/UrlQuery";
 import ThemeManager from "./helpers/ThemeManager";
 
 
+// var pages = import.meta.glob('./pages/*/*.jsx', { eager: true })
+//   const routes = Object.keys(pages).map((path) => {
+//     const name = path.match(/pages\/(.+)\/(.+)\.jsx$/)[1]
+//     return {
+//       name,
+//       path: name === 'Home' ? '/' : `/${name.toLowerCase()}`,
+//       component: pages[path].default,
+//     }
+//   })
+//   console.log(routes)
+
 // export all Pages
 export const Pages = {
   Home, About, Contact, Error404

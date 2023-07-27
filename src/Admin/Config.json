@@ -1,0 +1,13 @@
+{
+  "AppName": "لوحة التحكم",
+  "baseName": "/dash",
+  "apiServer": "https://adel-dev.epizy.com/api",
+  "nav": [
+    { "name": "الرئيسية", "icon": "fa:home", "link": "/dash", "color": "#3E8FEE" },
+    { "name": "الالعاب", "icon": "ic:outline-sports-volleyball", "link": "/dash/sports", "color": "#3EDA77" },
+    { "name": "اللاعبين", "icon": "heroicons:users-20-solid", "link": "/dash/players", "color": "#D54B10" },
+    { "name": "الاشتراكات", "icon": "wpf:renew-subscription", "link": "/dash/subscriptions", "color": "#ffae00" },
+    { "name": "المرتبات", "icon": "la:money-check", "link": "/dash/salaries", "color": "#77f0df" },
+    { "name": "التقارير", "icon": "iconoir:reports", "link": "/dash/reports", "color": "#09900f" }
+  ]
+}
