@@ -1,27 +1,49 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import "./Login.css";
 
 const Login = ({props}) => {
   const {Config, Imports} = props;
-  const {Components, Helpers} = Imports;
+  const {Helpers} = Imports;
   const [showPass, setShowPass] = useState(false);
+  const [loginError, setLoginError] = useState(null);
+  const [login, setLogin] = useState(localStorage.getItem('login') || null);
   
-  Helpers.Title(`${Config.AppName} | تسجيل الدخرل`);
+  Helpers.Title(`${Config.AppName} | تسجيل الدخول`);
 
   return (
     <section className="Login-Page">
-      <form action="#">
+      <form onSubmit={(e)=>{
+        e.preventDefault();
+        fetch(`${Config.apiServer}/auth/login`, {
+          method: "POST",
+          body: JSON.stringify({
+            "USER": e.target.email.value,
+            "PASS": e.target.pass.value,
+            "TOKEN": "ddddddddddddddddf"
+          })
+        })
+        .then(res=>res.json())
+        .then(res=>{
+          if(res.ok == true){
+            setLogin(true);
+            localStorage.setItem('login', true);
+          } else {
+            setLoginError(res.result);
+          }
+        });
+      }}>
         <p>
           <Icon icon="mingcute:right-line" onClick={()=> history.back()} />
           <span>اهلا بالعودة</span>
         </p>
         <h1>تسجيل الدخول</h1>
         <p>قم بتسجيل الدخول لتتمكن من فتح لوحة التحكم</p>
+        {loginError ? <p className="error">{loginError}</p> : <></>}
         <label className="item user-group">
           <Icon icon="majesticons:mail-line" />
-          <input type="email" name="mail" required placeholder="البريد الالكتروني" />
+          <input type="email" name="email" required placeholder="البريد الالكتروني" />
         </label>
         <label className="item pass-group">
           <Icon icon="mdi:password-outline" />
@@ -32,6 +54,7 @@ const Login = ({props}) => {
         <button className="item" type="submit" onClick={()=>setShowPass(false)}>تسجيل الدخول</button>
         <span>ليس لديك حساب ؟ <Link to="/dash/signup">سجل الان</Link></span>
       </form>
+      {login ? <Navigate to="/dash" replace={true} /> : <></>}
     </section>
   )
 };

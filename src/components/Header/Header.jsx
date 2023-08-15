@@ -51,16 +51,22 @@ const Header = ({ List }) => {
         }
       </nav>
       <nav>
-        <Link className="item" onClick={()=> hideHeader()} to="/dash/login">
-          <Icon icon="mdi:login-variant" />
-          <span>تسجيل الدخول</span>
-        </Link>
         {false && (
           <span className="item" onClick={()=> window.themeManager.switch()} >
             <Icon icon="fa:moon-o" />
             <span>المظهر</span>
           </span>
         )}
+        {localStorage.getItem('login') ? (
+          <Link className="item" onClick={()=> hideHeader()} to="/dash">
+            <Icon icon="gala:settings" />
+            <span>لوحة التحكم</span>
+          </Link>
+        ) : <></>}
+        <Link className="item" onClick={()=> hideHeader()} to={localStorage.getItem('login')? "/dash/logout" : "/dash/login"}>
+          <Icon icon="mdi:login-variant" />
+          <span>تسجيل {localStorage.getItem('login')? "الخروج" : "الدخول"}</span>
+        </Link>
       </nav>
     </header>
   );

@@ -1,13 +1,16 @@
 {
   "AppName": "لوحة التحكم",
   "baseName": "/dash",
-  "apiServer": "https://adel-dev.epizy.com/api",
+  "apiServer": "http://localhost:8001/api",
   "nav": [
     { "name": "الرئيسية", "icon": "fa:home", "link": "/dash", "color": "#3E8FEE" },
-    { "name": "الالعاب", "icon": "ic:outline-sports-volleyball", "link": "/dash/sports", "color": "#3EDA77" },
-    { "name": "اللاعبين", "icon": "heroicons:users-20-solid", "link": "/dash/players", "color": "#D54B10" },
-    { "name": "الاشتراكات", "icon": "wpf:renew-subscription", "link": "/dash/subscriptions", "color": "#ffae00" },
-    { "name": "المرتبات", "icon": "la:money-check", "link": "/dash/salaries", "color": "#77f0df" },
-    { "name": "التقارير", "icon": "iconoir:reports", "link": "/dash/reports", "color": "#09900f" }
+    { "name": "الانشطة", "icon": "fluent:sport-soccer-24-filled", "link": "/dash/sports", "color": "#3EDA77" },
+    { "name": "المدربين", "icon": "healthicons:i-training-class", "link": "/dash/trainers", "color": "#9b59b6" },
+    { "name": "اللاعبين", "icon": "game-icons:american-football-player", "link": "/dash/players", "color": "#D54B10" },
+    { "name": "المؤظفين", "icon": "clarity:employee-group-solid", "link": "/dash/employees", "color": "#ffae00" },
+    { "name": "المصروفات", "icon": "la:money-check", "link": "/dash/costs", "color": "#1abc9c" },
+    { "name": "المستخدمين", "icon": "iconoir:user", "link": "/dash/users", "color": "#e67e22" },
+    { "name": "التقارير", "icon": "iconoir:reports", "link": "/dash/reports", "color": "#27ae60" },
+    { "name": "الاعدادات", "icon": "iconoir:settings", "link": "/dash/options", "color": "#e74c3c" }
   ]
 }

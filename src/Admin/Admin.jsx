@@ -5,7 +5,10 @@ import Config from "./Config.json";
 const { Pages, Helpers } = Imports;
 
 const Admin = () => {
-
+  fetch(Config.apiServer + "/auth/status?token=ddddddddddddddddf")
+  .then(res => res.json())
+  .then(console.log)
+  .catch(console.error)
   return (
     <Routes>
       <Route path="/" element={<Pages.Home props={{Config, Imports}} />} />
@@ -15,6 +18,7 @@ const Admin = () => {
       <Route path="/sports" element={<Pages.Sports props={{Config, Imports}} />} />
       <Route path="/subscriptions" element={<Pages.Subscriptions props={{Config, Imports}} />} />
       <Route path="/login" element={<Pages.Login props={{Config, Imports}} />} />
+      <Route path="/logout" element={<Pages.Logout props={{Config, Imports}} />} />
       <Route path="/signup" element={<Pages.Signup props={{Config, Imports}} />} />
       <Route path="*" element={<Pages.Error404 props={{Config, Imports}} />} />
     </Routes>

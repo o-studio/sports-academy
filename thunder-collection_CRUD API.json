@@ -1,0 +1,178 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "CURD API",
+  "dateExported": "2023-08-11T15:06:25.336Z",
+  "version": "1.1",
+  "folders": [
+    {
+      "_id": "0708d808-ed21-454d-a2ae-a024026d48c2",
+      "name": "Read",
+      "containerId": "",
+      "created": "2023-08-11T15:02:53.815Z",
+      "sortNum": 10000
+    },
+    {
+      "_id": "37f03550-c82e-490e-9749-cbaaf5f0d412",
+      "name": "Write",
+      "containerId": "",
+      "created": "2023-08-11T15:03:02.544Z",
+      "sortNum": 20000
+    }
+  ],
+  "requests": [
+    {
+      "_id": "ba99d4d1-4cb6-48d6-b0d0-a09846f52239",
+      "colId": "1c93477b-d515-4db0-a786-512a7361efdf",
+      "containerId": "",
+      "name": "Auth Login",
+      "url": "http://localhost:8001/auth/login",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2023-08-11T15:02:28.322Z",
+      "modified": "2023-08-11T15:02:28.322Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"USER\": \"admin\",\n  \"PASS\": \"admin@135\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "8b2dc010-1c2c-4fa1-8c77-5708b4bbe5b4",
+      "colId": "1c93477b-d515-4db0-a786-512a7361efdf",
+      "containerId": "0708d808-ed21-454d-a2ae-a024026d48c2",
+      "name": "get",
+      "url": "http://localhost:8001/sport/football",
+      "method": "GET",
+      "sortNum": 10000,
+      "created": "2023-08-11T15:05:13.084Z",
+      "modified": "2023-08-11T15:05:13.084Z",
+      "headers": [],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "6f6899ab-a538-42f8-9913-212178748cb8",
+      "colId": "1c93477b-d515-4db0-a786-512a7361efdf",
+      "containerId": "0708d808-ed21-454d-a2ae-a024026d48c2",
+      "name": "getall",
+      "url": "http://localhost:8001/sports?perPage=1000&page=1",
+      "method": "GET",
+      "sortNum": 15000,
+      "created": "2023-08-11T15:04:01.067Z",
+      "modified": "2023-08-11T15:04:01.067Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "perPage",
+          "value": "1000",
+          "isPath": false
+        },
+        {
+          "name": "page",
+          "value": "1",
+          "isPath": false
+        }
+      ],
+      "tests": []
+    },
+    {
+      "_id": "40d841a6-9f31-4706-afe4-13b78736135a",
+      "colId": "1c93477b-d515-4db0-a786-512a7361efdf",
+      "containerId": "0708d808-ed21-454d-a2ae-a024026d48c2",
+      "name": "search",
+      "url": "http://localhost:8001/sports/search?q=d&perPage=1000&page=1",
+      "method": "GET",
+      "sortNum": 17500,
+      "created": "2023-08-11T15:04:45.031Z",
+      "modified": "2023-08-11T15:04:45.031Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "q",
+          "value": "d",
+          "isPath": false
+        },
+        {
+          "name": "perPage",
+          "value": "1000",
+          "isPath": false
+        },
+        {
+          "name": "page",
+          "value": "1",
+          "isPath": false
+        }
+      ],
+      "tests": []
+    },
+    {
+      "_id": "960fc46d-a172-48e7-8b5e-9509a64f8d18",
+      "colId": "1c93477b-d515-4db0-a786-512a7361efdf",
+      "containerId": "0708d808-ed21-454d-a2ae-a024026d48c2",
+      "name": "count",
+      "url": "http://0.0.0.0:8001/sports/count",
+      "method": "GET",
+      "sortNum": 20000,
+      "created": "2023-08-11T15:03:33.139Z",
+      "modified": "2023-08-11T15:03:33.139Z",
+      "headers": [],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "d274bdde-61f4-4567-aaf1-4a82cde448d2",
+      "colId": "1c93477b-d515-4db0-a786-512a7361efdf",
+      "containerId": "37f03550-c82e-490e-9749-cbaaf5f0d412",
+      "name": "insert",
+      "url": "http://localhost:8001/sports",
+      "method": "POST",
+      "sortNum": 50000,
+      "created": "2023-08-11T15:04:55.003Z",
+      "modified": "2023-08-11T15:04:55.003Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"football\",\n  \"content\": [\"dddercc\"]\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "b0cf693c-202c-40f8-84ac-aa12ffa90b3a",
+      "colId": "1c93477b-d515-4db0-a786-512a7361efdf",
+      "containerId": "37f03550-c82e-490e-9749-cbaaf5f0d412",
+      "name": "update",
+      "url": "http://localhost:8001/sport/football",
+      "method": "POST",
+      "sortNum": 55000,
+      "created": "2023-08-11T15:05:20.305Z",
+      "modified": "2023-08-11T15:05:20.305Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"football\",\n  \"content\": \"ddderrrrrrrrrrrrcc\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "cb35926c-81b0-4cf5-90d3-1e3303ba77ec",
+      "colId": "1c93477b-d515-4db0-a786-512a7361efdf",
+      "containerId": "37f03550-c82e-490e-9749-cbaaf5f0d412",
+      "name": "delete",
+      "url": "http://localhost:8001/sport/football",
+      "method": "DELETE",
+      "sortNum": 60000,
+      "created": "2023-08-11T15:05:05.107Z",
+      "modified": "2023-08-11T15:05:05.107Z",
+      "headers": [],
+      "params": [],
+      "tests": []
+    }
+  ]
+}
