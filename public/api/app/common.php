@@ -52,7 +52,7 @@ foreach ($routes as $route) {
   });
 
   // Update by param: key
-  Router::post("/$item/{key}", function ($key) use ($group, $tag) {
+  Router::post("/$item/{key}/update", function ($key) use ($group, $tag) {
     Router::middleware(["auth"]);
     $data = json_decode(file_get_contents("php://input"), true);
     $res = AdelSQL::update($group, $key, $data["content"], $tag);
@@ -63,7 +63,7 @@ foreach ($routes as $route) {
   });
 
   // Delete by param: key
-  Router::delete("/$item/{key}", function ($key) use ($group, $tag) {
+  Router::post("/$item/{key}/delete", function ($key) use ($group, $tag) {
     Router::middleware(["auth"]);
     $res = AdelSQL::delete($group, $key, $tag);
     if ($res == false) {

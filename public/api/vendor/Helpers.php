@@ -1,8 +1,6 @@
 <?php
 namespace HimaPro;
 
-
-
 class Helpers {
   public static function response($status, $value) {
     $data = array(
@@ -41,7 +39,7 @@ class Helpers {
         "total-items" => count($arr),
         "per-page" => (int)$perPage,
         "current-page" => (int)$page,
-        "items" => $arrs[(int)$page-1] ?? (object)[]
+        "items" => $arrs[(int)$page-1] ?? []
       );
     } else {
       return "page $page not found";

@@ -6,10 +6,10 @@ use AdelDev\AdelSQL;
 foreach (glob("vendor/*.php") as $vendor) include $vendor;
 
 AdelSQL::connect((object) [
-  "host" => "0.0.0.0",
-  "db"   => "himapro_db",
-  "user" => "himapro",
-  "pass" => "Hk5KEwF(718aF+-rg9"
+  "host" => "191.101.230.198",
+  "db"   => "u440720023_academy_db",
+  "user" => "u440720023_hima_db",
+  "pass" => "Hima_db2023"
 ]);
 
 Router::setup();

@@ -24,6 +24,15 @@
   flex-direction: column;
 }
 
+.Login-Page form .error {
+  background: rgba(255, 0, 0, 0.2);
+  color: red;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
 .Login-Page .item {
   width: 100%;
   background: var(--secondary);
@@ -69,17 +78,18 @@
 
 .Login-Page button[type="submit"] {
   height: 50px;
+  background: var(--colorAccent);
   border: 1px solid var(--shadow);
   font-family: var(--fontFamily);
+  color: #ffffff;
   cursor: pointer;
 }
 
 .Login-Page button[type="submit"]:hover {
-  background: var(--colorAccent);
-  color: #ffffff;
+  opacity: 0.8;
 }
 .Login-Page button[type="submit"]:active {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 ::placeholder {

@@ -57,15 +57,15 @@ const Header = ({ List }) => {
             <span>المظهر</span>
           </span>
         )}
-        {localStorage.getItem('login') ? (
+        {localStorage.getItem('token') ? (
           <Link className="item" onClick={()=> hideHeader()} to="/dash">
             <Icon icon="gala:settings" />
             <span>لوحة التحكم</span>
           </Link>
         ) : <></>}
-        <Link className="item" onClick={()=> hideHeader()} to={localStorage.getItem('login')? "/dash/logout" : "/dash/login"}>
+        <Link className="item" onClick={()=> hideHeader()} to={localStorage.getItem('token') ? "/dash/logout" : "/dash/login"}>
           <Icon icon="mdi:login-variant" />
-          <span>تسجيل {localStorage.getItem('login')? "الخروج" : "الدخول"}</span>
+          <span>تسجيل {localStorage.getItem('token') ? "الخروج" : "الدخول"}</span>
         </Link>
       </nav>
     </header>

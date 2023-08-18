@@ -69,17 +69,18 @@
 
 .Signup-Page button[type="submit"] {
   height: 50px;
+  background: var(--colorAccent);
   border: 1px solid var(--shadow);
   font-family: var(--fontFamily);
+  color: #ffffff;
   cursor: pointer;
 }
 
 .Signup-Page button[type="submit"]:hover {
-  background: var(--colorAccent);
-  color: #ffffff;
+  opacity: 0.8;
 }
 .Signup-Page button[type="submit"]:active {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 ::placeholder {

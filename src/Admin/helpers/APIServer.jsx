@@ -12,7 +12,7 @@ class APIServer {
       method: method,
       signal: controller.signal,
       headers: {
-        "Accept": "application/json",
+        "Accept": "*/*",
       },
       body: data,
     })
@@ -37,14 +37,18 @@ class APIServer {
     });
   }
   insert(body, callback) {
-    this.fetch(`${this.baseUrl}/${this.group}`, "POST", body).then(data => {
+    var url = new URL(this.baseUrl + "/" + this.group);
+    url.searchParams.append("token", localStorage.getItem("token"));
+    this.fetch(url.href, "POST", body).then(data => {
       if (data.ok == true) {
         callback(data.result);
       } else console.warn(data);
     });
   }
   update(name, body, callback) {
-    this.fetch(`${this.baseUrl}/${this.item}/${name}`, "POST", body).then(
+    var url = new URL(this.baseUrl + "/" + this.item + "/" + name + "/update");
+    url.searchParams.append("token", localStorage.getItem("token"));
+    this.fetch(url.href, "POST", body).then(
       data => {
         if (data.ok == true) {
           callback(data.result);
@@ -53,7 +57,9 @@ class APIServer {
     );
   }
   delete(name, callback) {
-    this.fetch(`${this.baseUrl}/${this.item}/${name}`, "DELETE").then(data => {
+    var url = new URL(this.baseUrl + "/" + this.item + "/" + name + "/delete");
+    url.searchParams.append("token", localStorage.getItem("token"));
+    this.fetch(url.href, "POST").then(data => {
       if (data.ok == true) {
         callback(data.result);
       } else console.warn(data);

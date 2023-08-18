@@ -1,7 +1,7 @@
 {
   "AppName": "لوحة التحكم",
   "baseName": "/dash",
-  "apiServer": "http://localhost:8001/api",
+  "apiServer": "https://dom.hima-pro.ru/api",
   "nav": [
     { "name": "الرئيسية", "icon": "fa:home", "link": "/dash", "color": "#3E8FEE" },
     { "name": "الانشطة", "icon": "fluent:sport-soccer-24-filled", "link": "/dash/sports", "color": "#3EDA77" },

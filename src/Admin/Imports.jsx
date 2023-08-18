@@ -15,6 +15,7 @@ import Error404 from "./pages/NotFound/NotFound";
 // helpers
 import cDate from "./helpers/cDate";
 import APIServer from "./helpers/APIServer";
+import RandStr from "./helpers/RandStr";
 
 // components
 import Tabler from "./components/Tabler/Tabler";
@@ -32,5 +33,5 @@ export const Components = Object.assign({
 
 // export all Helpers
 export const Helpers = Object.assign({
-  cDate, APIServer
+  cDate, APIServer, RandStr
 }, AppImports.Helpers);

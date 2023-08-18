@@ -1,7 +1,0 @@
-[
-  { "id": "1", "sport_name": "Basketball", "create_date": "2023-06-30 18:00:00" },
-  { "id": "3", "sport_name": "Karate", "create_date": "2023-06-30 18:00:00" },
-  { "id": "4", "sport_name": "Football", "create_date": "2023-07-18 18:24:30" },
-  { "id": "5", "sport_name": "Gymnastics", "create_date": "2023-07-18 18:24:30" },
-  { "id": "6", "sport_name": "Ballet", "create_date": "2023-07-24 05:47:09" }
-]

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import "./Login.css";
@@ -12,6 +12,10 @@ const Login = ({props}) => {
   
   Helpers.Title(`${Config.AppName} | تسجيل الدخول`);
 
+  useEffect(()=>{
+    setTimeout(() => setLoginError(null), 5000);
+  }, [loginError]);
+
   return (
     <section className="Login-Page">
       <form onSubmit={(e)=>{
@@ -21,16 +25,17 @@ const Login = ({props}) => {
           body: JSON.stringify({
             "USER": e.target.email.value,
             "PASS": e.target.pass.value,
-            "TOKEN": "ddddddddddddddddf"
           })
         })
         .then(res=>res.json())
         .then(res=>{
           if(res.ok == true){
+            localStorage.setItem("token", res.result);
             setLogin(true);
-            localStorage.setItem('login', true);
           } else {
-            setLoginError(res.result);
+            if(res.result == "wrong username or password") {
+              setLoginError("البريد الالكتروني او كلمة السر خطاء");
+            }
           }
         });
       }}>
@@ -40,7 +45,10 @@ const Login = ({props}) => {
         </p>
         <h1>تسجيل الدخول</h1>
         <p>قم بتسجيل الدخول لتتمكن من فتح لوحة التحكم</p>
-        {loginError ? <p className="error">{loginError}</p> : <></>}
+        {loginError ? <p className="error">
+          <Icon icon="feather:alert-triangle" />
+          {loginError}
+        </p> : <></>}
         <label className="item user-group">
           <Icon icon="majesticons:mail-line" />
           <input type="email" name="email" required placeholder="البريد الالكتروني" />

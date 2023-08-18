@@ -9,17 +9,20 @@ const Sports = ({ props }) => {
   const PageData = Config.nav.find(item => item.name == PageName);
   Helpers.Title(`${Config.AppName} | ${PageName}`);
 
+  const [name, setName] = useState("");
+  const [EditingNme, setEditingName] = useState("");
   const [SportsData, setSportsData] = useState(null);
+  const [Editing, setEditing] = useState(false);
+  const [DataNeedUpdate, setDataNeedUpdate] = useState(1);
   const [currentPage, setCurrentPage] = useState(Helpers.UrlQuery("p") || 1);
-  const perPage = 2;
+  const perPage = 5;
 
   const API = new Helpers.APIServer("sports", "sport");
 
   useEffect(() => {
     API.getAll(currentPage, perPage, (data) => setSportsData(data));
-  }, [currentPage]);
+  }, [currentPage, DataNeedUpdate]);
 
-  const [name, setName] = useState("");
   return (
     <Components.Layout header={Config.nav}>
       <section className="Sports-Page">
@@ -30,12 +33,32 @@ const Sports = ({ props }) => {
           </h1>
         </div>
         <div className="sports-sides">
-          <form action="#" onSubmit={() => API.insert(JSON.stringify({name, content: name}), console.log)}>
+          <form action="#" onSubmit={(e) => {
+            e.preventDefault();
+            if(Editing) {
+              API.update(EditingNme, JSON.stringify({"name": EditingNme, "content": name}), ()=>{
+                setDataNeedUpdate(DataNeedUpdate * 2);
+                setEditing(false);
+                setName("");
+              });
+            } else {
+              API.insert(JSON.stringify({"name": Helpers.RandStr(), "content": name}), ()=>{
+                setDataNeedUpdate(DataNeedUpdate * 2);
+                setName("");
+              });
+            }
+          }}>
             <label className="item box-group">
               <Icon icon="fluent-mdl2:rename" />
               <input type="text" value={name} onChange={(e)=> setName(e.target.value)} required placeholder="اسم النشاط" />
             </label>
-            <button className="item" type="submit">اضافة</button>
+            <div className="buttons">
+              <button className="item" type="submit">{Editing ? "تحديث" : "اضافة"}</button>
+              {Editing ? <button className="item" type="reset" onClick={()=> {
+                setEditing(false);
+                setName("");
+              }}>الغاء</button> : <></>}
+            </div>
           </form>
           <hr style={{margin: "10px 0"}}/>
           <div className="table-container">
@@ -56,11 +79,15 @@ const Sports = ({ props }) => {
                       <td>{sport.content}</td>
                       <td dir="ltr">{Helpers.cDate(sport.modified, "full")}</td>
                       <td dir="ltr">
-                        <Icon icon="mdi:garbage-can-outline" style={{color: "#ff0000"}} onClick={()=> {
+                        <Icon icon="mdi:garbage-can-outline" style={{color: "#ff0000"}} onClick={() => {
                           API.delete(sport.name, console.log);
-                          setSportsData(null);
+                          setDataNeedUpdate(DataNeedUpdate * 2);
                         }} />
-                        <Icon icon="mingcute:edit-line" style={{color: "#0099ff"}} />
+                        <Icon icon="mingcute:edit-line" style={{color: "#0099ff"}} onClick={() => {
+                          setEditing(true);
+                          setEditingName(sport.name);
+                          setName(sport.content);
+                        }} />
                       </td>
                     </tr>
                   );
