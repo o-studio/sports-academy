@@ -1,6 +1,7 @@
 header {
   display: grid;
   grid-template-rows: auto 1fr auto;
+  min-height: 100%;
 }
 
 header nav {
@@ -12,6 +13,16 @@ header .logo-nav {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
+}
+
+header .nav-container {
+  display: block;
+  overflow-y: auto;
+  white-space: nowrap;
+}
+
+header nav.links {
+  min-height: 100px;
 }
 
 header .item {

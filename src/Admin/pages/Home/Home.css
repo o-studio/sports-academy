@@ -10,22 +10,24 @@
 .Home-Page .home-sides {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  margin: 20px 0;
-  gap: 20px;
+  margin: 25px 0;
+  gap: 10px;
 }
 
 .Home-Page .home-sides .side {
-  background: var(--primary);
+  color: #ffffff;
   text-align: center;
   padding: 20px;
   border-radius: 10px;
+  margin: 5px;
+  transition: all 0.1s ease-in-out;
   border: 1px solid var(--shadow);
   cursor: pointer;
 }
 
 .Home-Page .home-sides .side:hover {
-  border-color: var(--colorAccent);
   box-shadow: 0 0 15px var(--shadow);
+  margin: 0;
 }
 
 .Home-Page .home-sides .side .side-logo {

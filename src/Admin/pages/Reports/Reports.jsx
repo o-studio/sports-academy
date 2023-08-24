@@ -1,15 +1,15 @@
 import "./Reports.css";
 
-const Reports = ({props}) => {
-  const {Config, Imports} = props;
-  const {Components, Helpers} = Imports;
-  
-  Helpers.Title(`${Config.AppName} | صفحة التقارير`);
+const Reports = ({ props }) => {
+  const { Config, Imports } = props;
+  const { Components, Helpers } = Imports;
+
+  Helpers.Title(`${Config.AppName} | صفحة التقارير`, true);
 
   return (
-    <Components.Layout  header={Config.nav} >
-      صفحة التقارير
-    </Components.Layout>
-  )
+    <Components.AdminAccess>
+      <Components.Layout header={Config.nav}>صفحة التقارير</Components.Layout>
+    </Components.AdminAccess>
+  );
 };
 export default Reports;

@@ -2,7 +2,7 @@
 RewriteEngine on
 
 # set your rewrite base, must end with "/"
-RewriteBase /
+RewriteBase /api/
 
 # Deliver the folder or file directly if it exists on the server
 RewriteCond %{REQUEST_FILENAME} !-f

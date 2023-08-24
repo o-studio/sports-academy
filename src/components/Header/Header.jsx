@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSignOut, useAuthUser } from 'react-auth-kit'
 import { Icon } from "@iconify/react";
 import Config from "../../Config.json";
 import "./Header.css";
-import { useState } from "react";
 
 setInterval(() => {
   let items = document.querySelectorAll("header > nav > .item");
@@ -21,6 +22,10 @@ const Header = ({ List }) => {
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
   window.onresize = () => setPageWidth(window.innerWidth);
   const hideHeader = ()=> {setToggle(-1); window.sessionStorage.toggle = (-1);}
+
+
+  const signout = useSignOut();
+  const auth = useAuthUser();
   return (
     <header className={`${toggle > 0 ? "open" : "close"} ${toggleWide > 0 ? "open-wide" : "close-wide"}`}>
       <nav className="logo-nav">
@@ -40,32 +45,37 @@ const Header = ({ List }) => {
           )
         }
       </nav>
-      <nav className="links">
-        {
-          List.map((item, index) => (
-            <Link className="item" onClick={()=> hideHeader()} to={item.link} key={index}>
-              <Icon style={{color: item.color}} icon={item.icon} />
-              <span>{item.name}</span>
-            </Link>
-          ))
-        }
-      </nav>
+      <div className="nav-container">
+        <nav className="links">
+          {
+            List.map((item, index) => (
+              <Link className="item" onClick={()=> hideHeader()} to={item.link} key={index}>
+                <Icon style={{color: item.color}} icon={item.icon} />
+                <span>{item.name}</span>
+              </Link>
+            ))
+          }
+        </nav>
+      </div>
       <nav>
-        {false && (
+        {true && (
           <span className="item" onClick={()=> window.themeManager.switch()} >
             <Icon icon="fa:moon-o" />
             <span>المظهر</span>
           </span>
         )}
-        {localStorage.getItem('token') ? (
+        {auth() && auth().token ? (
           <Link className="item" onClick={()=> hideHeader()} to="/dash">
             <Icon icon="gala:settings" />
             <span>لوحة التحكم</span>
           </Link>
         ) : <></>}
-        <Link className="item" onClick={()=> hideHeader()} to={localStorage.getItem('token') ? "/dash/logout" : "/dash/login"}>
+        <Link className="item" onClick={()=> {
+          hideHeader();
+          if(auth() && auth().token) signout();
+        }} to={auth() && auth().token ? "/" : "/dash/login"}>
           <Icon icon="mdi:login-variant" />
-          <span>تسجيل {localStorage.getItem('token') ? "الخروج" : "الدخول"}</span>
+          <span>تسجيل {auth() && auth().token ? "الخروج" : "الدخول"}</span>
         </Link>
       </nav>
     </header>

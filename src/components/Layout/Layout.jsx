@@ -1,9 +1,7 @@
-import {Components, Helpers} from "../../Imports";
+import { Components } from "../../Imports";
 import "./Layout.css";
 
-const Layout = ({children, header, noHeader}) => {
-  Helpers.Title("Sport Academy | Layout")
-
+const Layout = ({ children, header, noHeader }) => {
   return (
     <>
       {noHeader ? <></> : <Components.Header List={header} />}
@@ -12,6 +10,6 @@ const Layout = ({children, header, noHeader}) => {
         <Components.Footer />
       </section>
     </>
-  )
+  );
 };
 export default Layout;

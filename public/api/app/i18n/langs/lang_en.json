@@ -1,0 +1,32 @@
+{
+  "welcome": "welcome",
+  "greating": "Hello, world!",
+  "exist": "already exist",
+  "email_exist": "email already exists",
+  "e404": "404 not found",
+  "success": {
+    "insert": "inserted successfully",
+    "update": "updated successfully",
+    "delete": "deleted successfully",
+    "logout": "logout successfully",
+    "auth": "auth success"
+  },
+  "invalid": {
+    "token": "invalid token",
+    "logins":"wrong email or password"
+  },
+  "not": {
+    "access": "Access denied",
+    "found": "not found",
+    "exist": "not exist",
+    "auth": "not authorized"
+  },
+  "need": {
+    "token": "token is required",
+    "logins":  "email and password are required",
+    "query": "query is required",
+    "email": "email is required",
+    "password": "password is required",
+    "name": "name is required"
+  }
+}

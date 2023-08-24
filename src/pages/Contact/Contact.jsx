@@ -4,7 +4,7 @@ const Contact = ({props}) => {
   const {Config, Imports} = props;
   const {Components, Helpers} = Imports;
   
-  Helpers.Title(`${Config.AppName} | اتصل بنا`);
+  Helpers.Title(`${Config.AppName} | اتصل بنا`, true);
 
   return (
     <Components.Layout header={Config.nav} >

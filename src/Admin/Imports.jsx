@@ -20,6 +20,7 @@ import RandStr from "./helpers/RandStr";
 // components
 import Tabler from "./components/Tabler/Tabler";
 import HiPager from "./components/HiPager/HiPager";
+import AdminAccess from "./components/AdminAccess/AdminAccess";
 
 // export all Pages
 export const Pages = {
@@ -28,7 +29,7 @@ export const Pages = {
 
 // export all Components
 export const Components = Object.assign({
-  Tabler, HiPager
+  Tabler, HiPager, AdminAccess
 }, AppImports.Components);
 
 // export all Helpers

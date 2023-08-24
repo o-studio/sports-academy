@@ -3,7 +3,7 @@
 use HimaPro\Router;
 use HimaPro\Helpers;
 use AdelDev\AdelSQL;
-session_start();
+use HimaPro\I18n;
 
 $tag = isset($_GET['tag']) ? $_GET['tag'] : "/";
 $routes = array(
@@ -24,52 +24,95 @@ foreach ($routes as $route) {
   $perPage = isset($_GET["perPage"]) && (int) $_GET["perPage"] ? (int) $_GET["perPage"] : 50;
   $page = isset($_GET["page"]) && (int) $_GET["page"] ? (int) $_GET["page"] : 1;
 
+  if($tag === "/admins" && ($group == "users" || $item == "user")) {
+    Router::any("/users", function () {
+      echo Helpers::response(false, I18n::not_access);
+    });
+    Router::any("/$item/{id}", function () {
+      echo Helpers::response(false, I18n::not_access);
+    });
+    break;
+  }
+
   // Get All
   Router::get("/$group", function () use ($group, $perPage, $page, $tag) {
     $res = AdelSQL::getAll($group, $tag);
     $res = Helpers::pager($res, $perPage, $page);
-    echo Helpers::response(gettype($res) == "array", $res);
+    echo Helpers::response(gettype($res) == "object", $res);
   });
 
   // Get by param: key
   Router::get("/$item/{key}", function ($key) use ($group, $tag) {
     $res = AdelSQL::get($group, $key, $tag);
     if ($res == false) {
-      $res = "$key doesn't exist";
+      $res = "$key " . I18n::not_exist;
     }
     echo Helpers::response(gettype($res) == "object", $res);
   });
 
   // insert
   Router::post("/$group", function () use ($group, $tag) {
-    Router::middleware(["auth"]);
-    $data = json_decode(file_get_contents("php://input"), true);
-    $res = AdelSQL::insert($group, $data["name"], $data["content"], $tag);
-    if ($res == false) {
-      $result = $data["name"] . " already exist";
-    } else $result = "inserted successfully";
-    echo Helpers::response($res, $result);
+    if (isset($_GET["token"])) {
+      Router::middleware(["auth"], [
+        "auth" => ["token", $_GET["token"], function ($ok, $result) use ($group, $tag) {
+          if ($ok == false) {
+            echo Helpers::response($ok, $result);
+            return;
+          }
+          $data = json_decode(file_get_contents("php://input"), true);
+          $res = AdelSQL::insert($group, $data["name"], $data["content"], $tag);
+          if ($res == false) {
+            $result = $data["name"] . " " . I18n::exist;
+          } else $result = I18n::success_insert;
+          echo Helpers::response($res, $result);
+        }]
+      ]);
+    } else {
+      echo Helpers::response(false, I18n::need_token);
+    }
   });
 
   // Update by param: key
   Router::post("/$item/{key}/update", function ($key) use ($group, $tag) {
-    Router::middleware(["auth"]);
-    $data = json_decode(file_get_contents("php://input"), true);
-    $res = AdelSQL::update($group, $key, $data["content"], $tag);
-    if ($res == false) {
-      $result = $data["name"] . " doesn't exist";
-    } else $result = "updated successfully";
-    echo Helpers::response($res, $result);
+    if (isset($_GET["token"])) {
+      Router::middleware(["auth"], [
+        "auth" => ["token", $_GET["token"], function ($ok, $result) use ($group, $key, $tag) {
+          if ($ok == false) {
+            echo Helpers::response($ok, $result);
+            return;
+          }
+          $data = json_decode(file_get_contents("php://input"), true);
+          $res = AdelSQL::update($group, $key, $data["content"], $tag);
+          if ($res == false) {
+            $result = $data["name"] . " " . I18n::not_exist;
+          } else $result = I18n::success_update;
+          echo Helpers::response($res, $result);
+        }]
+      ]);
+    } else {
+      echo Helpers::response(false, I18n::need_token);
+    }
   });
 
   // Delete by param: key
   Router::post("/$item/{key}/delete", function ($key) use ($group, $tag) {
-    Router::middleware(["auth"]);
-    $res = AdelSQL::delete($group, $key, $tag);
-    if ($res == false) {
-      $result = $key . " doesn't exist";
-    } else $result = "deleted successfully";
-    echo Helpers::response($res, $result);
+    if (isset($_GET["token"])) {
+      Router::middleware(["auth"], [
+        "auth" => ["token", $_GET["token"], function ($ok, $result) use ($group, $key, $tag) {
+          if ($ok == false) {
+            echo Helpers::response($ok, $result);
+            return;
+          }
+          $res = AdelSQL::delete($group, $key, $tag);
+          if ($res == false) {
+            $result = "$key " . I18n::not_exist;
+          } else $result = I18n::success_delete;
+          echo Helpers::response($res, $result);
+        }]
+      ]);
+    } else {
+      echo Helpers::response(false, I18n::need_token);
+    }
   });
 
   // search by query: "q"
@@ -79,7 +122,7 @@ foreach ($routes as $route) {
       $res = Helpers::pager($res, $perPage, $page);
       echo Helpers::response(true, $res);
     } else {
-      echo Helpers::response(false, "no query provided");
+      echo Helpers::response(false, I18n::need_query);
     }
   });
 

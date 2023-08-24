@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { useSignIn, useAuthUser } from "react-auth-kit";
 import { Icon } from "@iconify/react";
 import "./Login.css";
 
 const Login = ({props}) => {
   const {Config, Imports} = props;
   const {Helpers} = Imports;
+  const auth = useAuthUser();
+  const signIn = useSignIn();
   const [showPass, setShowPass] = useState(false);
+  const [Submitting, setSubmitting] = useState(false);
   const [loginError, setLoginError] = useState(null);
-  const [login, setLogin] = useState(localStorage.getItem('login') || null);
+  const [login, setLogin] = useState(auth() && auth().token ? true : false);
   
-  Helpers.Title(`${Config.AppName} | تسجيل الدخول`);
+  Helpers.Title(`${Config.AppName} | تسجيل الدخول`, true);
 
   useEffect(()=>{
     setTimeout(() => setLoginError(null), 5000);
@@ -20,27 +24,34 @@ const Login = ({props}) => {
     <section className="Login-Page">
       <form onSubmit={(e)=>{
         e.preventDefault();
-        fetch(`${Config.apiServer}/auth/login`, {
+        setSubmitting(true);
+        fetch(`${Config.apiServer}/auth/login?lang=ar`, {
           method: "POST",
           body: JSON.stringify({
-            "USER": e.target.email.value,
-            "PASS": e.target.pass.value,
+            "email": e.target.email.value,
+            "password": e.target.pass.value,
           })
         })
         .then(res=>res.json())
         .then(res=>{
           if(res.ok == true){
-            localStorage.setItem("token", res.result);
+            signIn({
+              token: res.result.token,
+              expiresIn: 60 * 8,
+              authState: { ...res.result }
+            });
+            localStorage.setItem("login", true);
             setLogin(true);
           } else {
-            if(res.result == "wrong username or password") {
-              setLoginError("البريد الالكتروني او كلمة السر خطاء");
-            }
+            setLoginError(res.result);
+            setSubmitting(false);
           }
         });
       }}>
         <p>
-          <Icon icon="mingcute:right-line" onClick={()=> history.back()} />
+          <Link to="/">
+            <Icon icon="mingcute:right-line" />
+          </Link>
           <span>اهلا بالعودة</span>
         </p>
         <h1>تسجيل الدخول</h1>
@@ -59,7 +70,10 @@ const Login = ({props}) => {
           <Icon className="showPass" icon={`${showPass ? "akar-icons:eye-open" : "pepicons-pop:eye-closed"}`} onClick={()=>setShowPass(!showPass)} />
         </label>
         <Link to="/dash/forget-password">هل نسيت كلمة السر ؟</Link>
-        <button className="item" type="submit" onClick={()=>setShowPass(false)}>تسجيل الدخول</button>
+        <button className="item" type="submit" onClick={()=>setShowPass(false)}>
+          {Submitting ? <Icon icon="feather:loader" /> : <></>}
+          تسجيل الدخول
+        </button>
         <span>ليس لديك حساب ؟ <Link to="/dash/signup">سجل الان</Link></span>
       </form>
       {login ? <Navigate to="/dash" replace={true} /> : <></>}

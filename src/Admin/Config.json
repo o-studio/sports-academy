@@ -1,16 +1,16 @@
 {
   "AppName": "لوحة التحكم",
   "baseName": "/dash",
-  "apiServer": "https://dom.hima-pro.ru/api",
+  "apiServer": "https://cdn.hima-pro.ru/api/sports-academy",
   "nav": [
     { "name": "الرئيسية", "icon": "fa:home", "link": "/dash", "color": "#3E8FEE" },
-    { "name": "الانشطة", "icon": "fluent:sport-soccer-24-filled", "link": "/dash/sports", "color": "#3EDA77" },
-    { "name": "المدربين", "icon": "healthicons:i-training-class", "link": "/dash/trainers", "color": "#9b59b6" },
-    { "name": "اللاعبين", "icon": "game-icons:american-football-player", "link": "/dash/players", "color": "#D54B10" },
-    { "name": "المؤظفين", "icon": "clarity:employee-group-solid", "link": "/dash/employees", "color": "#ffae00" },
-    { "name": "المصروفات", "icon": "la:money-check", "link": "/dash/costs", "color": "#1abc9c" },
-    { "name": "المستخدمين", "icon": "iconoir:user", "link": "/dash/users", "color": "#e67e22" },
-    { "name": "التقارير", "icon": "iconoir:reports", "link": "/dash/reports", "color": "#27ae60" },
+    { "name": "الانشطة", "icon": "fluent:sport-soccer-24-filled", "link": "/dash/sports", "color": "#1877f2" },
+    { "name": "المدربين", "icon": "healthicons:i-training-class", "link": "/dash/trainers", "color": "#c600ff" },
+    { "name": "اللاعبين", "icon": "game-icons:american-football-player", "link": "/dash/players", "color": "#f0284a" },
+    { "name": "المؤظفين", "icon": "clarity:employee-group-solid", "link": "/dash/employees", "color": "#ff9900" },
+    { "name": "المصروفات", "icon": "la:money-check", "link": "/dash/costs", "color": "#2abba7" },
+    { "name": "المستخدمين", "icon": "iconoir:user", "link": "/dash/users", "color": "#f8cc1b" },
+    { "name": "التقارير", "icon": "iconoir:reports", "link": "/dash/reports", "color": "#7971ea" },
     { "name": "الاعدادات", "icon": "iconoir:settings", "link": "/dash/options", "color": "#e74c3c" }
   ]
 }

@@ -45,7 +45,7 @@ class AdelSQL {
    * @since 01.08.2023
    */
   private static function table($tableName) {
-    $query = "CREATE TABLE IF NOT EXISTS {$tableName} (`name` VARCHAR(255) PRIMARY KEY, `content` TEXT, `tag` TEXT, `modified` TIMESTAMP)";
+    $query = "CREATE TABLE IF NOT EXISTS {$tableName} (`name` VARCHAR(255), `content` TEXT, `tag` TEXT, `modified` TIMESTAMP PRIMARY KEY)";
     self::$pdo->exec($query);
   }
 
@@ -56,9 +56,9 @@ class AdelSQL {
    * @return String|true String if error, true if success.
    * @since 01.08.2023
    */
-  public static function Insert($tableName, $key, $value, $tag = "/") {
+  public static function Insert($tableName, $key, $value, $tag = null) {
     self::table($tableName);
-    if (gettype(self::get($tableName, $key)) == "object") {
+    if (gettype(self::Get($tableName, $key, $tag)) == "object") {
       return false;
     } else {
       $query = "INSERT INTO {$tableName} (`name`, `content`, `tag`, `modified`) VALUES (:key, :value, :tag, UTC_TIMESTAMP())";
@@ -75,7 +75,7 @@ class AdelSQL {
    * @return Object|false Object if success, false if not.
    * @since 01.08.2023
    */
-  public static function Get($tableName, $key, $tag = "/") {
+  public static function Get($tableName, $key, $tag = null) {
     self::table($tableName);
     $query = "SELECT * FROM {$tableName} WHERE `name` = :key AND `tag` = :tag";
     $stmt = self::$pdo->prepare($query);
@@ -107,21 +107,24 @@ class AdelSQL {
 
   /** 
    * @param String $tableName Name of the table to create it if not exist. 
-   * @return Object Object contains all stored data in format: key: value.
    * @param String $tag name of a collection. 
+   * @return Array Array contains all stored data in format: key: value.
    * @since 01.08.2023
    */
-  public static function GetAll($tableName, $tag = "/") {
+  public static function GetAll($tableName, $tag = null) {
     self::table($tableName);
     $query = "SELECT * FROM {$tableName}";
     $stmt = self::$pdo->query($query);
     $res = $stmt->fetchAll();
+    $result = [];
     for ($i = 0; $i < count($res); $i++) {
       if($res[$i]->tag == $tag){
-        $res[$i]->content = json_decode($res[$i]->content)[0];
-      } else unset($res[$i]);
+        $item = $res[$i];
+        $item->content = json_decode($item->content)[0];
+        array_push($result, $item);
+      }
     }
-    return $res;
+    return $result;
   }
 
   /**
@@ -132,9 +135,9 @@ class AdelSQL {
    * @return String|true String if error, true if success.
    * @since 01.08.2023
    */
-  public static function Update($tableName, $key, $value, $tag = "/") {
+  public static function Update($tableName, $key, $value, $tag = null) {
     self::table($tableName);
-    if (gettype(self::get($tableName, $key)) === "object") {
+    if (gettype(self::Get($tableName, $key, $tag)) === "object") {
       $query = "UPDATE {$tableName} SET `content` = :value, `modified` = UTC_TIMESTAMP() WHERE `name` = :key AND `tag` = :tag";
       $stmt = self::$pdo->prepare($query);
       if ($stmt->execute([':key' => $key, ':value' => json_encode([$value]), ':tag' => $tag])) {
@@ -149,12 +152,12 @@ class AdelSQL {
    * @param String $tableName Name of the table to create it if not exist. 
    * @param String $key Key of the stored data. 
    * @param String $tag name of a collection. 
-   * @return String|true String if error, true if success.
+   * @return bool String if error, true if success.
    * @since 01.08.2023
    */
-  public static function Delete($tableName, $key, $tag = "/") {
+  public static function Delete($tableName, $key, $tag = null) {
     self::table($tableName);
-    if (gettype(self::get($tableName, $key)) == "object") {
+    if (gettype(self::Get($tableName, $key, $tag)) == "object") {
       $query = "DELETE FROM {$tableName} WHERE `name` = :key AND `tag`= :tag";
       $stmt = self::$pdo->prepare($query);
       if ($stmt->execute([':key' => $key, ':tag' => $tag])) {
@@ -172,16 +175,16 @@ class AdelSQL {
    * @return Array Array contains all keys that thier value contains $query.
    * @since 01.08.2023
    */
-  public static function Search($tableName, $search, $tag = "/") {
+  public static function Search($tableName, $search, $tag = null) {
     self::table($tableName);
-    $query = "SELECT * FROM {$tableName} WHERE `content` LIKE '%$search%' AND `tag` = :tag";
-    $stmt = self::$pdo->prepare($query);
-    $stmt->execute([":tag" => $tag]);
-    $res = $stmt->fetchAll();
+    $result = array();
+    $res = self::GetAll($tableName, $tag);
     for ($i = 0; $i < count($res); $i++) {
-      $res[$i]->content = json_decode($res[$i]->content)[0];
+      if(mb_stripos($res[$i]->content, $search) !== false) {
+        array_push($result, $res[$i]);
+      }
     }
-    return $res;
+    return $result;
   }
 
   /**
@@ -190,7 +193,7 @@ class AdelSQL {
    * @return Number The amount of all stored data.
    * @since 11.08.2023
    */
-  public static function Count($tableName, $tag = "/") {
+  public static function Count($tableName, $tag = null) {
     self::table($tableName);
     $query = "SELECT COUNT(`name`) FROM {$tableName} WHERE `tag` = :tag";
     $stmt = self::$pdo->prepare($query);
