@@ -24,7 +24,7 @@ foreach ($routes as $route) {
   $perPage = isset($_GET["perPage"]) && (int) $_GET["perPage"] ? (int) $_GET["perPage"] : 50;
   $page = isset($_GET["page"]) && (int) $_GET["page"] ? (int) $_GET["page"] : 1;
 
-  if($tag === "/admins" && ($group == "users" || $item == "user")) {
+  if ($tag === "/admins" && ($group == "users" || $item == "user")) {
     Router::any("/users", function () {
       echo Helpers::response(false, I18n::not_access);
     });
@@ -37,6 +37,9 @@ foreach ($routes as $route) {
   // Get All
   Router::get("/$group", function () use ($group, $perPage, $page, $tag) {
     $res = AdelSQL::getAll($group, $tag);
+    usort($res, function ($a, $b) {
+      return strcmp($b->modified, $a->modified);
+    });
     $res = Helpers::pager($res, $perPage, $page);
     echo Helpers::response(gettype($res) == "object", $res);
   });
@@ -115,10 +118,50 @@ foreach ($routes as $route) {
     }
   });
 
+  // delete by array of keys
+  Router::post("/$group/delete", function () use ($group, $tag) {
+    if (isset($_GET["token"])) {
+      Router::middleware(["auth"], [
+        "auth" => ["token", $_GET["token"], function ($ok, $result) use ($group, $tag) {
+          if ($ok == false) {
+            echo Helpers::response($ok, $result);
+            return;
+          }
+          $keysToCheck = json_decode(file_get_contents('php://input'), true);
+          if (!is_array($keysToCheck)) {
+            echo Helpers::response(false, I18n::invalid_delGroup);
+            return;
+          }
+          $keysNotFound = [];
+          foreach ($keysToCheck as $key) {
+            if (!AdelSQL::Get($group, $key, $tag)) {
+              $keysNotFound[] = $key;
+            }
+          }
+          if (!empty($keysNotFound)) {
+            echo Helpers::response(false, $keysNotFound);
+          } else {
+            foreach ($keysToCheck as $key) {
+              AdelSQL::delete($group, $key, $tag);
+            }
+            echo Helpers::response(true, I18n::success_delGroup);
+          }
+        }]
+      ]);
+    } else {
+      echo Helpers::response(false, I18n::need_token);
+    }
+  });
+
+
+
   // search by query: "q"
   Router::get("/$group/search", function () use ($group, $tag, $perPage, $page) {
     if (isset($_GET["q"])) {
       $res = AdelSQL::Search($group, $_GET["q"], $tag);
+      usort($res, function ($a, $b) {
+        return strcmp($b->modified, $a->modified);
+      });
       $res = Helpers::pager($res, $perPage, $page);
       echo Helpers::response(true, $res);
     } else {

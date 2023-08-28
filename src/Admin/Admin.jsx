@@ -15,7 +15,7 @@ const Admin = () => {
         <Route path="/sports" element={<Pages.Sports props={{Config, Imports}} />} />
         <Route path="/subscriptions" element={<Pages.Subscriptions props={{Config, Imports}} />} />
         <Route path="/login" element={<Pages.Login props={{Config, Imports}} />} />
-        <Route path="/signup" element={<Pages.Signup props={{Config, Imports}} />} />
+        {/* <Route path="/signup" element={<Pages.Signup props={{Config, Imports}} />} /> */}
         <Route path="/logout" element={<Pages.Logout props={{Config, Imports}} />} />
         <Route path="*" element={<Pages.Error404 props={{Config, Imports}} />} />
       </Routes>

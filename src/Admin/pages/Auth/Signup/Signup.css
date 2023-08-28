@@ -24,6 +24,15 @@
   flex-direction: column;
 }
 
+.Signup-Page form .error {
+  background: rgba(255, 0, 0, 0.2);
+  color: red;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
 .Signup-Page .item {
   width: 100%;
   background: var(--secondary);

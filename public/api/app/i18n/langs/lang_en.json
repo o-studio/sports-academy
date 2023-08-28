@@ -8,11 +8,13 @@
     "insert": "inserted successfully",
     "update": "updated successfully",
     "delete": "deleted successfully",
+    "delGroup": "All are deleted successfully",
     "logout": "logout successfully",
     "auth": "auth success"
   },
   "invalid": {
     "token": "invalid token",
+    "delGroup": "Invalid request data",
     "logins":"wrong email or password"
   },
   "not": {

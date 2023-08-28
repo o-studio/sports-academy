@@ -13,9 +13,11 @@ const Sports = ({ props }) => {
   const [EditingNme, setEditingName] = useState("");
   const [SportsData, setSportsData] = useState(null);
   const [Editing, setEditing] = useState(false);
+  const [selectedRows, setSelectedRows] = useState([]);
   const [DataNeedUpdate, setDataNeedUpdate] = useState(1);
   const [currentPage, setCurrentPage] = useState(Helpers.UrlQuery("p") || 1);
   const perPage = 10;
+  
 
   const API = new Helpers.APIServer("sports", "sport");
 
@@ -38,12 +40,14 @@ const Sports = ({ props }) => {
               e.preventDefault();
               if(Editing) {
                 API.update(EditingNme, JSON.stringify({"name": EditingNme, "content": name}), ()=>{
+                  setSportsData(null);
                   setDataNeedUpdate(DataNeedUpdate * 2);
                   setEditing(false);
                   setName("");
                 });
               } else {
                 API.insert(JSON.stringify({"name": Helpers.RandStr(), "content": name}), ()=>{
+                  setSportsData(null);
                   setDataNeedUpdate(DataNeedUpdate * 2);
                   setName("");
                 });
@@ -53,20 +57,45 @@ const Sports = ({ props }) => {
                 <Icon icon="fluent-mdl2:rename" />
                 <input type="text" value={name} onChange={(e)=> setName(e.target.value)} required placeholder="اسم النشاط" />
               </label>
-              <div className="buttons">
+              <div className="buttons" style={{display: "grid", gridTemplateColumns: Editing ? "1fr 100px" : "1fr", gap: "10px"}}>
                 <button className="item" type="submit">{Editing ? "تحديث" : "اضافة"}</button>
-                {Editing ? <button className="item" type="reset" onClick={()=> {
+                {Editing ? <button className="item" type="submit" onClick={()=> {
                   setEditing(false);
                   setName("");
                 }}>الغاء</button> : <></>}
               </div>
             </form>
             <hr style={{margin: "10px 0"}}/>
+            <div style={{display: "grid", gridTemplateColumns: selectedRows.length > 0 ? "1fr 60px" : "1fr", gap: "10px"}}>
+              <form style={{display: "grid", gridTemplateColumns: "1fr 100px", gap: "10px"}} >
+                <label className="item box-group">
+                  <Icon icon="fluent-mdl2:search" />
+                  <input type="text" placeholder="بحث" />
+                </label>
+                <button className="item" type="submit">بحث</button>
+              </form>
+              {selectedRows.length > 0 ? <button className="item" type="submit" style={{lineHeight: "100%"}}>
+                <Icon icon="fluent-mdl2:delete" />
+              </button> : null}
+              
+            </div>
             <div className="table-container">
               <table>
                 <thead>
                   <tr>
-                    <td><input type="checkbox" name="" id="" /></td>
+                    <td>
+                      <input
+                        type="checkbox" 
+                        checked={selectedRows.length === SportsData?.items.length} 
+                        onChange={() => {
+                          if (selectedRows.length === SportsData?.items.length) {
+                            setSelectedRows([]);
+                          } else {
+                            setSelectedRows(SportsData.items.map(row => row.name));
+                          }
+                        }} 
+                      />
+                    </td>
                     <td>اسم النشاط</td>
                     <td>تاريخ الانشاء</td>
                     <td>تفاعل</td>
@@ -76,13 +105,27 @@ const Sports = ({ props }) => {
                   {SportsData ? SportsData.items.map((sport) => {
                     return (
                       <tr key={sport.name}>
-                        <td><input type="checkbox" name={sport.name} id="" /></td>
+                        <td>
+                          <input 
+                            type="checkbox" 
+                            checked={selectedRows.includes(sport.name)}
+                            onChange={() => {
+                              if (selectedRows.includes(sport.name)) {
+                                setSelectedRows(selectedRows.filter(selectedRow => selectedRow !== sport.name));
+                              } else {
+                                setSelectedRows([...selectedRows, sport.name]);
+                              }
+                            }} 
+                          />
+                        </td>
                         <td>{sport.content}</td>
                         <td dir="ltr">{Helpers.cDate(sport.modified, "full")}</td>
                         <td dir="ltr">
                           <Icon icon="mdi:garbage-can-outline" style={{color: "#ff0000"}} onClick={() => {
-                            API.delete(sport.name, console.log);
-                            setDataNeedUpdate(DataNeedUpdate * 2);
+                            if(confirm(`هل انت متأكد من حذف ${sport.content} ؟`)) {
+                              API.delete(sport.name, () => setSportsData(null));
+                              setDataNeedUpdate(DataNeedUpdate * 2);
+                            }
                           }} />
                           <Icon icon="mingcute:edit-line" style={{color: "#0099ff"}} onClick={() => {
                             setEditing(true);
